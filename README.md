@@ -8,9 +8,24 @@
 
 ## 1. Произведите базовую настройку устройств (ALT)
 
-● Настройте имена устройств согласно топологии. Используйте полное доменное имя
+● Настройте имена устройств согласно топологии. Используйте полное доменное имя (ALT)
 
-` hostnamectl set-hostname hq-r.hq.work; exec bash`
+` hostnamectl set-hostname hq-srv.au.team.irpo; exec bash`
+
+` hostnamectl set-hostname hq-cli.au.team.irpo; exec bash`
+
+` hostnamectl set-hostname br-srv.au.team.irpo; exec bash`
+
+o Настройте имена устройств согласно топологии. Используйте полное доменное имя (EcoR)
+
+`en`
+
+`conf t`
+
+`hostname hq-rtr.au-team.irpo`
+
+`hostname br-rtr.au-team.irpo`
+
 
 ● На всех устройствах необходимо сконфигурировать IPv4
 
