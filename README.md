@@ -34,7 +34,7 @@ o Настройте имена устройств согласно тополо
 
 `do confirm`
 
-● На всех устройствах необходимо сконфигурировать IPv4
+● На всех устройствах необходимо сконфигурировать IPv4 (Alt)
 
 `ip -с a`
 
@@ -55,6 +55,44 @@ DNS-сервер: `echo nameserver 8.8.8.8 > /etc/resolv.conf`
 Создание нового интерфейса (предположительно свериться в ip a): `mkdir /etc/net/ifaces/ens__`
 
 Перезагрузка адаптера: `service network restart`& `systemctl restart network.service`
+
+o Настройте айпи (EcoRouter)
+
+`interface ge0`
+
+`description "ISP"`
+
+`ip address 172.16.4.2/28`
+
+`exit`
+
+`port ge0`
+
+`service-instance ge0/ge0`
+
+`encapsulation untagged` 
+
+`connect ip interface ge0`
+
+`exit`
+
+`exit`
+
+Default gateway 
+
+`ip route 0.0.0.0/0 172.16.4.1`
+
+Сохраняем
+
+`write`
+
+Информация
+
+`show ip interface brief`
+
+o Настройте айпи (vESR)
+
+
 
 ## 2. Настройка ISP
 
