@@ -92,34 +92,29 @@
 
 В Linux необходимо включить службу, добавить ее в автозагрузку и проверить статус:
 
-`systemctl start serial-getty@ttyS0.service
+`systemctl start serial-getty@ttyS0.service`
 
-systemctl enable serial-getty@ttyS0.service
+`systemctl enable serial-getty@ttyS0.service`
 
-systemctl status serial-getty@ttyS0.service`
+`systemctl status serial-getty@ttyS0.service`
 
 ##### Настройка консоли vESR
 
 Чтобы логи выводились на удалённую консоль, выполним следующие настройки.
 
-`config
+`config`
 
-syslog console
+`syslog console`
 
-virtual-serial
+`virtual-serial`
 
-do commit
+`do commit`
 
-do reload system
-
-y`
+`do reload system` `y`
 
 
 ![image](https://github.com/user-attachments/assets/9ace5062-8737-4abd-96e3-21f3e3901cfa)
 
-
-
-![image](https://github.com/user-attachments/assets/978cb567-95bf-45bd-87fb-a71becdb570c)
 
 ## 1. Произведите базовую настройку устройств (ALT)
 
@@ -206,6 +201,25 @@ Default gateway
 `show ip interface brief`
 
 o Настройте айпи (vESR)
+
+(ISP)
+
+configure
+
+int gi1/0/3
+ip address 172.16.4.1/28
+ip firewall disable
+no shutdown
+
+int gi1/0/2
+ip address 172.16.5.1/28
+ip firewall disable
+no shutdown
+
+commit
+confirm
+
+HQ-RTR
 
 
 
