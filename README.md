@@ -1,8 +1,123 @@
 ### Модуль № 1:
 
-Настройка сетевой инфраструктуры
+##### Сначала нужно развернуть все виртуальные машины, которые указаны в таблице.
+
+![image](https://github.com/user-attachments/assets/aa64e23e-0d48-4c28-89f8-d60fac9868cc)
+
+##### EcorR установка
+
+Переходим в Esxi и делаем импорт
+
+![image](https://github.com/user-attachments/assets/d10b1f0f-84a5-4a6c-89f0-88cacb2404e5)
+
+Далее задаем имя машине и вставляем файлы сюда
+
+![image](https://github.com/user-attachments/assets/195086f2-b62d-48ad-ac43-a048b1126d84)
+
+После
+
+![image](https://github.com/user-attachments/assets/4804e098-d072-4780-9b20-a46615fca413)
+
+##### Установка vESR на ESXI 8, обычная установка с небольшими изменениями.
+
+![image](https://github.com/user-attachments/assets/6534547e-31f3-414c-bebd-d4f03aa7e63f)
+
+Далее, после установки нужно включить машину
+
+После загрузки выбираем 
+
+`vESR installation-ok-пробел-ok-yes`
+
+Далее `reboot`
+
+После переустановки нужно ввести учетные данные и нужно сразу сменить пароль администратора
+
+Логин `admin`
+
+Пароль `password`
+
+Зафиксируем изменения введем `commit`
+
+Подтвердим изменения `confirm`
+
+##### Создание виртуальных подключений
+
+Раздел `Networking` затем во вкладка `Virtual switchs`
+
+Добавляем  виртуальный коммутатор `add standart virtual switch`
+
+![image](https://github.com/user-attachments/assets/dbb7a9cd-5c02-4d0b-8914-4e0af9476b56)
+
+Задаем имя виртуальному коммутатору 
+
+Раскрываем пункт `Security` изменяем все пункты на `Accept`
+
+Нажимаем кнопку `ADD`
+
+![image](https://github.com/user-attachments/assets/a4683487-d97f-40c2-b0d2-08db60004026)
+
+В результате должно получиться 
+
+![image](https://github.com/user-attachments/assets/3202c0ca-cd88-4e5c-a30f-34423b75d7d7)
+
+![image](https://github.com/user-attachments/assets/baa213f6-f82d-4fc5-9152-73320cee97cb)
+
+##### Настройка внеполосного управления
+
+Включаем службу в firewall на ESXi
+
+Переходим в раздел `Networking`
+
+Открываем вкладку `Firewall rules`
+
+Ищем правило `remoteSerialPort`. Активируем это правило.
+
+![image](https://github.com/user-attachments/assets/14aadda1-2766-4b9a-96af-20d42d0fbd3a)
+
+Настраиваем виртуальные машины (работа выполняется на всех машинах) 
+
+Выключаем виртуальные машины
+
+Добавляем новое устройство нажав на `Add other device`
+
+Выбираем пункт `Serial port`
+
+Изменяем тип порта на `Use network`
+
+В строку `Port URL` добавляем значение в формате `telnet://0.0.0.0:5055` 
+
+Сохраняем изменения нажав кнопку `SAVE`
+
+![image](https://github.com/user-attachments/assets/c27968c6-31bb-464a-9a6c-852aa6a31550)
+
+В Linux необходимо включить службу, добавить ее в автозагрузку и проверить статус:
+
+`systemctl start serial-getty@ttyS0.service
+
+systemctl enable serial-getty@ttyS0.service
+
+systemctl status serial-getty@ttyS0.service`
+
+##### Настройка консоли vESR
+
+Чтобы логи выводились на удалённую консоль, выполним следующие настройки.
+
+`config
+
+syslog console
+
+virtual-serial
+
+do commit
+
+do reload system
+
+y`
+
 
 ![image](https://github.com/user-attachments/assets/9ace5062-8737-4abd-96e3-21f3e3901cfa)
+
+
 
 ![image](https://github.com/user-attachments/assets/978cb567-95bf-45bd-87fb-a71becdb570c)
 
