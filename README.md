@@ -182,7 +182,6 @@ Ecor(HQ-RTR)
 
 ![image](https://github.com/user-attachments/assets/117238f5-9598-4a78-9270-0b0fac08103a)
 
-
 Привязываем созданный интерфейс к физическому протоколу
 
 Заходим в `port ge0`
@@ -255,7 +254,74 @@ ALT (HQ-SRV)
 
 ![image](https://github.com/user-attachments/assets/1bcaf221-d35b-4db5-8a2c-b3f4d4d1ebe8)
 
-HQ-CLI(ALT)
+ALT (BR-SRV)
+
+`echo 192.168.1.2/26 > /etc/net/ifaces/ens192/ipv4address`
+
+`echo default via 192.168.1.1 > /etc/net/ifaces/ens192/ipv4route`
+
+![image](https://github.com/user-attachments/assets/6a117570-bc77-4cc0-8b6e-94aabfafbc2b)
+
+
+#### HQ-CLI(ALT)
+
+BR-RTR(vesr)
+
+![image](https://github.com/user-attachments/assets/cc8655b2-8ead-454f-9955-b42efef662ba)
+
+`ip route 0.0.0.0/0 172.16.5.1`
+
+`do commit`
+
+`do confirm`
+
+●  Создание локальных учетных записей
+
+ALT: HQ-SRV / BR-SRV
+
+`useradd -m -u 1010 sshuser`
+
+`passwd sshuser`
+
+`nano /etc/sudoers.d/sshuser`
+
+`sshuser ALL=(ALL) NOPASSWD:ALL`
+
+Проверка:
+
+![image](https://github.com/user-attachments/assets/3fd522e4-3efa-457d-925e-cf1b8a20e62c)
+
+![image](https://github.com/user-attachments/assets/98aae368-ebe7-4795-8929-a144944c1585)
+
+HQ-RTR (EcoRouter)
+
+`conf t`
+
+`username net_admin`
+
+`password P@ssw0rd`
+
+`role admin`
+
+`activate`
+
+![image](https://github.com/user-attachments/assets/9ce70cd6-684b-4dc1-a3d9-cfabb0ec94e5)
+
+BR-RTR (Eltex - vESR)
+
+`configure`
+
+`username net_admin`
+
+`password P@ssw0rd`
+
+`privilege 15`
+
+`end`
+
+`commit`
+
+`confirm`
 
 
 
@@ -265,93 +331,6 @@ HQ-CLI(ALT)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-`ip -с a`
-
-`echo ***.***.*.*/** > /etc/net/ifaces/ens**/ipv4address`
-
-`echo default via ***.***.*.* > /etc/net/ifaces/ens**/ipv4route`
-
-`nano(vim) /etc/net/ifaces/ens**/options`
-
-`nano(vim) /etc/net/ifaces/ens**/options`
-
-![image](https://github.com/user-attachments/assets/0e1b4b8a-ca12-461d-9c5f-d52dae49000d)
-
-Сохраняем изменения: `Esc: wq`
-
-DNS-сервер: `echo nameserver 8.8.8.8 > /etc/resolv.conf`
-
-Создание нового интерфейса (предположительно свериться в ip a): `mkdir /etc/net/ifaces/ens__`
-
-Перезагрузка адаптера: `service network restart`& `systemctl restart network.service`
-
-o Настройте айпи (EcoRouter)
-
-`interface ge0`
-
-`description "ISP"`
-
-`ip address 172.16.4.2/28`
-
-`exit`
-
-`port ge0`
-
-`service-instance ge0/ge0`
-
-`encapsulation untagged` 
-
-`connect ip interface ge0`
-
-`exit`
-
-`exit`
-
-Default gateway 
-
-`ip route 0.0.0.0/0 172.16.4.1`
-
-Сохраняем
-
-`write`
-
-Информация
-
-`show ip interface brief`
-
-o Настройте айпи (vESR)
-
-(ISP)
-
-configure
-
-int gi1/0/3
-ip address 172.16.4.1/28
-ip firewall disable
-no shutdown
-
-int gi1/0/2
-ip address 172.16.5.1/28
-ip firewall disable
-no shutdown
-
-commit
-confirm
-
-HQ-RTR
 
 
 
