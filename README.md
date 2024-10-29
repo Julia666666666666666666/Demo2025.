@@ -323,6 +323,40 @@ BR-RTR (Eltex - vESR)
 
 `confirm`
 
+●  Настройка SSH на HQ-SRV и BR-SRV
+
+Делаем  бэкап конфига:
+
+![image](https://github.com/user-attachments/assets/54db08c0-33e2-464c-b4d5-23d1160c6b85)
+
+
+Редактируем файл конфигурации SSH сервера
+
+`vim sshd_config`
+
+Изменяем следующие параметры. Не забываем их раскоментировать. Если какой-то параметр не находиться, то просто добавьте его сами
+
+`Port 2024`
+
+`MaxAuthTries 3`
+
+`Banner /etc/openssh/banner`
+
+`AllowUsers sshuser`
+
+Создаем файл с баннером
+
+`
+nano /etc/openssh/banner`
+
+Вставляем в него следующие содержимое
+
+![image](https://github.com/user-attachments/assets/54c8ace0-ca56-40f7-bd1a-eb4d162ba2dd)
+
+
+Перезагружаем SSH
+
+`systemctl restart sshd`
 
 
 
@@ -334,107 +368,3 @@ BR-RTR (Eltex - vESR)
 
 
 
-## 2. Настройка ISP
-
-● Настройте адресацию на интерфейсах:
-
-o Интерфейс, подключенный к магистральному провайдеру,получает адрес по DHCP
-
-`apt-get -y install dhcp-server`
-
-/etc/sysconfig/dhcpd, указываю интерфейс внутренней сети:
-
-DHCPDARGS=ens**
-
-Копирую образец:
-
-`cp /etc/dhcp/dhcpd.conf.sample /etc/dhcp/dhcpd.conf`
-
-`/etc/dhcp/dhcpd.conf` параметры раздачи:
-
-`ddns-update-style-none;`
-
-subnet 192.168.0.0 netmask 255.255.255.128 {
-
-        option routers                  192.168.0.1;
-        
-        option subnet-mask              255.255.255.128;
-        
-        option domain-name-servers      8.8.8.8, 8.8.4.4;
-
-        range dynamic-bootp 192.168.0.20 192.168.0.50;
-        
-        default-lease-time 21600;
-        
-        max-lease-time 43200;
-}
-
-host HQ-SRV
-
-    {
-    hardware ethernet 00:50:56:b6:89:75;
-    
-    fixed-address 192.168.0.5;
-    }
-
-o Настройте маршруты по умолчанию там, где это необходимо
-
-o Интерфейс, к которому подключен HQ-RTR, подключен к сети 172.16.4.0/28
-
-o Интерфейс, к которому подключен BR-RTR, подключен к сети 172.16.5.0/28
-
-o На ISP настройте динамическую сетевую трансляцию в сторону HQ-RTR и BR-RTR для доступа к сети Интернет
-
-## 3. Создание локальных учетных записей
-
-● Создайте пользователя sshuser на серверах HQ-SRV и BR-SRV
-
-`adduser sshuser`
-
-o Пароль пользователя sshuser с паролем P@ssw0rd
-
-`passwd sshuser`
-
-`P@ssw0rd`
-
-`P@ssw0rd`
-
-o Идентификатор пользователя 1010
-
-o Пользователь sshuser должен иметь возможность запускать sudo без дополнительной аутентификации.
-
-● Создайте пользователя net_admin на маршрутизаторах HQ-RTR и BR-RTR (EcoRouter)
-
-`adduser net-admin`
-
-o Пароль пользователя net_admin с паролем P@$$word
-
-`passwd net-admin`
-
-`P@ssw0rd`
-
-`P@ssw0rd`
-
-o При настройке на ОС EcoRouter или аналоге пользователь net_admin должен обладать максимальными привилегиями
-
-o При настройке ОС на базе Linux, запускать sudo без дополнительной аутентификации
-
-## 4. Настройте на интерфейсе HQ-RTR в сторону офиса HQ виртуальный коммутатор:
-
-● Сервер HQ-SRV должен находиться в ID VLAN 100
-
-● Клиент HQ-CLI в ID VLAN 200
-
-● Создайте подсеть управления с ID VLAN 999
-
-● Основные сведения о настройке коммутатора и выбора реализации разделения на VLAN занесите в отчёт
-
-## 5. Настройка безопасного удаленного доступа на серверах HQ-SRV и BRSRV: 38
-
-● Для подключения используйте порт 2024
-
-● Разрешите подключения только пользователю sshuser
-
-● Ограничьте количество попыток входа до двух
-
-● Настройте баннер «Authorized access only»
