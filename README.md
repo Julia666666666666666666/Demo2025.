@@ -144,7 +144,139 @@ o Настройте имена устройств согласно тополо
 
 `do confirm`
 
-● На всех устройствах необходимо сконфигурировать IPv4 (Alt)
+● На всех устройствах необходимо сконфигурировать IPv4 
+
+![image](https://github.com/user-attachments/assets/bed48150-8df0-46e8-ae15-70c671766b03)
+
+Настройка айпи (ISP(Vesr))
+
+`configure`
+
+`int gi1/0/3`
+
+`ip address 172.16.4.1/28`
+
+`ip firewall disable`
+
+`no shutdown`
+
+`exit`
+
+`int gi1/0/2`
+
+`ip address 172.16.5.1/28`
+
+`ip firewall disable`
+
+`no shutdown`
+
+`commit`
+
+`confirm`
+
+![image](https://github.com/user-attachments/assets/2ff58a60-041c-43b4-9c04-c1faabff850c)
+
+Ecor(HQ-RTR)
+
+Создаем сущность интерфейса и назначаем IP (посмотреть интерфейсы)
+
+![image](https://github.com/user-attachments/assets/117238f5-9598-4a78-9270-0b0fac08103a)
+
+
+Привязываем созданный интерфейс к физическому протоколу
+
+Заходим в `port ge0`
+
+Создаем `service-instance service-instance SI-ISP`
+
+Указываем, что кадры на этом интерфейсе будут без тега `encapsulation untagged`
+
+Привязываем сущьность интрефейса к порту `connect ip interface TO-ISP`
+
+![image](https://github.com/user-attachments/assets/f2168178-3cf2-4de3-bb32-1b598d8fdddb)
+
+Создаем интерфейсы, которые будут обрабатывать трафик vlan 100, 200, 999
+
+![image](https://github.com/user-attachments/assets/2730782c-0912-4dd0-860a-a660d53fa7f2)
+ 
+Заходим на порт и создаем для каждой `vlan свой service-instance`.
+
+Заходим в port ge1.
+
+Создаем service-instance service-instance ge1/vlan100
+
+Указываем инкапсуляцию для 100 vlan
+
+Чтобы кадры из этого интерфейса выходили с тегом задаем настройку `rewrite pop 1`
+
+Привязываем сущность интрефейса к порту `connect ip interface HQ-SRV`
+
+Проделываем эти действия для vlan 200 и 999
+
+![image](https://github.com/user-attachments/assets/13fe3d95-1376-44c2-8471-2d392d7cc839)
+
+`connect ip interface HQ-SRV`
+
+`service-instance ge1/vlan200`
+
+`encapsulation dot1q 200`
+
+`rewrite pop 1`
+
+`connect ip interface HQ-CLI`
+
+`service-instance ge1/vlan999`
+
+`encapsulation dot1q 999`
+
+`rewrite pop 1`
+
+`connect ip interface HQ-MGMT`
+
+Проверка
+
+![image](https://github.com/user-attachments/assets/a567e440-0dd2-4673-9735-775fc0ccfe96)
+
+Создаем GRE туннель
+
+![image](https://github.com/user-attachments/assets/7c7b5a34-564f-4e9b-afcb-7f5bc104314b)
+
+Задаем маршрут по умолчанию в сторону ISP
+
+![image](https://github.com/user-attachments/assets/1771c7c4-91e6-455c-a33d-a28fc154ed26)
+
+ALT (HQ-SRV)
+
+`echo 192.168.0.2/26 > /etc/net/ifaces/ens192/ipv4address`
+
+`echo default via 192.168.0.1 > /etc/net/ifaces/ens192/ipv4route`
+
+`systemctl restart network`
+
+![image](https://github.com/user-attachments/assets/1bcaf221-d35b-4db5-8a2c-b3f4d4d1ebe8)
+
+HQ-CLI(ALT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 `ip -с a`
 
