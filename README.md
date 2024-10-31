@@ -358,13 +358,27 @@ nano /etc/openssh/banner`
 
 `systemctl restart sshd`
 
+●  Настройка OSPF
 
+HQ-RTR (Ecor)
 
+![image](https://github.com/user-attachments/assets/e728770c-85f0-4514-8a86-054c74ca9e06)
 
+BR-RTR (Vesr)
 
+![image](https://github.com/user-attachments/assets/3f9a87da-f547-4a8d-83b7-46b74c7b0674)
 
+`do commit`
 
+`do confirm`
 
+Проверка
+
+HQ-RTR
+
+![image](https://github.com/user-attachments/assets/a017b84f-0a19-463e-8d77-1ed184df8328)
+
+![image](https://github.com/user-attachments/assets/32460944-35a2-4407-97c0-3fa7333c1aef)
 
 
 
