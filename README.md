@@ -380,5 +380,17 @@ HQ-RTR
 
 ![image](https://github.com/user-attachments/assets/32460944-35a2-4407-97c0-3fa7333c1aef)
 
+●  Настройка NAT
+
+ISP
+
+![image](https://github.com/user-attachments/assets/82f8c36a-e0b4-46b0-aaf8-a6769420444e)
+
+HQ-RTR
+
+![image](https://github.com/user-attachments/assets/794b8cd1-9e37-4e7c-bbe7-9fdac4c5214a)
+
+BR-RTR
+
 
 
