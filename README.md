@@ -392,5 +392,12 @@ HQ-RTR
 
 BR-RTR
 
+Настройка DHCP на HQ-RTR (EcoRouter)
+
+![image](https://github.com/user-attachments/assets/06015766-575c-4a47-b37e-e2605f0acd8e)
+
+Проверка
+
+
 
 
