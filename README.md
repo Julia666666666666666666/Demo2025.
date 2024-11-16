@@ -400,5 +400,8 @@ BR-RTR
 
 ![image](https://github.com/user-attachments/assets/10d2003d-86c5-4817-b3b0-527009a6b7e9)
 
+ HQ-RTR (EcoRouter)
 
+ ![image](https://github.com/user-attachments/assets/edc72b3f-928f-414d-9fdf-4719c1fefde1)
 
+ 
