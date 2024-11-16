@@ -440,7 +440,7 @@ BR-RTR
 ![image](https://github.com/user-attachments/assets/6931ec34-46b2-4bb3-84c2-22764b0c763c)
 
 
-Настройка DHCP на HQ-RTR (EcoRouter)
+● Настройка DHCP на HQ-RTR (EcoRouter)
 
 ![image](https://github.com/user-attachments/assets/06015766-575c-4a47-b37e-e2605f0acd8e)
 
@@ -452,4 +452,48 @@ BR-RTR
 
  ![image](https://github.com/user-attachments/assets/edc72b3f-928f-414d-9fdf-4719c1fefde1)
 
- 
+●  Настройка часового пояса
+
+HQ-SRV, HQ-CLI, BR-SRV
+
+Проверяем какой часовой пояс установлен
+
+`timedatectl status`
+
+Если отличается, то устанавливаем
+
+`timedatectl set-timezone Asia/Yekaterinburg`
+
+![image](https://github.com/user-attachments/assets/b03af2ce-e1ef-42f5-ad3b-19c9d22dde50)
+
+И так должно быть на всех машинах
+
+HQ-RTR (EcoRouter)
+
+`conf t`
+
+`ntp timezone utc+5
+
+Проверяем:
+
+`show ntp timezone`
+
+![image](https://github.com/user-attachments/assets/2f21dfc4-6146-44df-baf8-b38327393a48)
+
+BR-RTR (Eltex)
+
+`configure`
+
+`clock timezone gmt +5`
+
+`end`
+
+`commit`
+
+`confirm`
+
+Проверяем:
+
+`show date`
+
+![image](https://github.com/user-attachments/assets/c271cf8a-bc22-4cb0-a1bd-c62452058b00)
