@@ -376,9 +376,16 @@ BR-RTR (Vesr)
 
 HQ-RTR
 
-![image](https://github.com/user-attachments/assets/a017b84f-0a19-463e-8d77-1ed184df8328)
+![image](https://github.com/user-attachments/assets/312df4ab-6514-4135-90ec-d541ae83efcc)
 
-![image](https://github.com/user-attachments/assets/32460944-35a2-4407-97c0-3fa7333c1aef)
+![image](https://github.com/user-attachments/assets/fe175fdc-ece5-4c92-8a4f-ec52808d39c1)
+
+BR-RTR
+
+![image](https://github.com/user-attachments/assets/46b00ebb-ac80-4081-8c85-c0e500041e46)
+
+![image](https://github.com/user-attachments/assets/02a50b4f-1711-459d-b36f-258239ffd468)
+
 
 ●  Настройка NAT
 
@@ -391,6 +398,40 @@ HQ-RTR
 ![image](https://github.com/user-attachments/assets/794b8cd1-9e37-4e7c-bbe7-9fdac4c5214a)
 
 BR-RTR
+
+`object-group network LOCAL_NET`
+
+ ` ip address-range 192.168.1.1-192.168.1.30`
+ 
+`exit`
+
+`nat source`
+
+`ruleset SNAT`
+  
+` to interface gigabitethernet 1/0/1`
+   
+`rule 1`
+    
+` match source-address LOCAL_NET`
+     
+`action source-nat interface`
+      
+` enable`
+     
+` exit`
+   
+`exit`
+  
+`exit`
+
+ Проверка
+
+ ![image](https://github.com/user-attachments/assets/736874c6-bbee-4b9d-abd1-f923e80f1bf4)
+
+
+![image](https://github.com/user-attachments/assets/6931ec34-46b2-4bb3-84c2-22764b0c763c)
+
 
 Настройка DHCP на HQ-RTR (EcoRouter)
 
