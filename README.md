@@ -358,6 +358,13 @@ nano /etc/openssh/banner`
 
 `systemctl restart sshd`
 
+Проверка
+
+![image](https://github.com/user-attachments/assets/9ab6956c-5c80-43d8-9af3-677f21d77dc0)
+
+![image](https://github.com/user-attachments/assets/b0cba095-c3ef-474d-b4df-957b38c0dca7)
+
+
 ●  Настройка OSPF
 
 HQ-RTR (Ecor)
